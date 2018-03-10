@@ -42,7 +42,6 @@ function startHelper() {
     for (const selector of selectors) {
       let elem = document.querySelector(selector);
       if (elem.length) {
-        console.log('clicking ' + selector);
         elem[0].click();
       }
     }
