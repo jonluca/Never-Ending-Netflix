@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="../css/gumby.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <style type="text/css">
+        body {
+            width: 400px;
+            background-color: black;
+            color: #B9090B;
+        }
+    </style>
+    <script src="../js/jquery.js"></script>
+</head>
+<body>
+<div class="pretty container">
+    <div class="row">
+        <form>
+            <fieldset>
+                <legend data-i18n="extName">Never Ending Netflix</legend>
+                <ul>
+                    <li class="field"><label class="checkbox" for="chkTitleSequence">
+                        <input type="checkbox" id="chkTitleSequence"><span class="checkBackground"></span>
+                        <div style="display:inline">Skip Title Sequences</div>
+                    </label></li>
+                    <li class="field"><label class="checkbox" for="chkPlayNext">
+                        <input type="checkbox" id="chkPlayNext"><span class="checkBackground"></span>
+                        <div style="display:inline">Automatically Play Next Episode</div>
+                    </label></li>
+                    <li class="field"><label class="checkbox" for="chkPromptStillHere">
+                        <input type="checkbox" id="chkPromptStillHere"><span class="checkBackground"></span>
+                        <div style="display:inline">Don't Prompt "Are you still watching?"</div>
+                    </label></li>
+                </ul>
+            </fieldset>
+        </form>
+        <p class="footer">&copy; JonLuca DeCaro 2018 - <a
+                href="https://github.com/jonluca/Never-Ending-Netflix">Source</a></p>
+    </div>
+</div>
+<script src="../js/libs/modernizr-2.7.1.min.js"></script>
+<script src="../js/libs/gumby.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/popup.js"></script>
+</body>
+</html>
