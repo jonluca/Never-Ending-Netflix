@@ -76,6 +76,7 @@
   },
   "homepage_url": "https://jonlu.ca",
   "web_accessible_resources": [
-    "js/*"
+    "js/*",
+    "data/*"
   ]
 }
