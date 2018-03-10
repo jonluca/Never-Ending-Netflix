@@ -40,8 +40,8 @@ function startHelper() {
 
   const monitor = new MutationObserver(function () {
     for (const selector of selectors) {
-      let elem = document.querySelector(selector);
-      if (elem.length) {
+      let elem = document.querySelectorAll(selector);
+      if (elem && elem.length) {
         elem[0].click();
       }
     }
