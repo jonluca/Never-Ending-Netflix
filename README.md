@@ -10,8 +10,8 @@ NEN is a chrome extension that improves the Netflix experience for power users. 
 
 NEN allows you to customize it's functionality with an options menu, which can be accessed by clicking the logo in the top bar.
 
-![options](https://i.imgur.com/65TMcdw.png)
+![options](https://i.imgur.com/AZimg0t.png)
 
 ## Live link
 
-[Link to Chrome Webstore]()
+[Link to Chrome Webstore](https://chrome.google.com/webstore/detail/hdadmgabliibighlbejhlglfjgplfmhb)
