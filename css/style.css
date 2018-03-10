@@ -1,3 +1,13 @@
+body {
+    width: 400px;
+    background-color: black;
+    color: #B9090B;
+}
+
+a {
+    color: #B9090B;
+}
+
 #messages {
     opacity: 0;
     margin-top: 2em;
@@ -34,4 +44,40 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .checkBackground {
     background-color: black !important;
+}
+
+#results {
+    overflow-y: scroll;
+    max-height: 300px;
+    float: left;
+}
+
+#results::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+}
+
+/* optional: show position indicator in red */
+#results::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+.entry{
+    font-size: 15px;
+}
+
+#genreSearch:focus {
+    color: #B9090B;
+}
+
+#genreSearch {
+    float: left;
+    width: 100%;
+    background-color: black;
+    border: 1px solid #B9090B;
+    padding: 5px;
+    height: 30px;
+    border-radius: 3px;
+    outline: none;
+    color: #B9090B;
 }

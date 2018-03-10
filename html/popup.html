@@ -4,13 +4,6 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="../css/gumby.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
-    <style type="text/css">
-        body {
-            width: 400px;
-            background-color: black;
-            color: #B9090B;
-        }
-    </style>
     <script src="../js/jquery.js"></script>
 </head>
 <body>
@@ -32,6 +25,9 @@
                         <input type="checkbox" id="chkPromptStillHere"><span class="checkBackground"></span>
                         <div style="display:inline">Don't Prompt "Are you still watching?"</div>
                     </label></li>
+                    <li class="field"><input type="text" id="genreSearch" placeholder="Full genre list">
+                        <div id="results"></div>
+                    </li>
                 </ul>
             </fieldset>
         </form>
@@ -42,6 +38,7 @@
 <script src="../js/libs/modernizr-2.7.1.min.js"></script>
 <script src="../js/libs/gumby.min.js"></script>
 <script src="../js/common.js"></script>
+<script src="../js/libs/fuse.min.js"></script>
 <script src="../js/popup.js"></script>
 </body>
 </html>
