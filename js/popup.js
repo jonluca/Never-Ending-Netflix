@@ -11,6 +11,7 @@ $(() => {
     $("#chkTitleSequence").prop('checked', options.skipTitleSequence);
     $("#chkPromptStillHere").prop('checked', options.skipStillHere);
     $("#chkPlayNext").prop('checked', options.autoPlayNext);
+    $("#chkDisAutoPlayInBrowse").prop('checked', options.disableAutoPlayOnBrowse);
     $('input:checked').trigger('gumby.check');
 
     $('input').parent().on('gumby.onChange', function () {
@@ -32,7 +33,7 @@ $(() => {
           minMatchCharLength: 3,
           keys: ["genre"]
         };
-        fuse = new Fuse(data, options); // "list" is the item array
+        fuse = new Fuse(data, options); // Text search library through all genres
       }
     });
 
@@ -72,6 +73,9 @@ function changeOption(elem) {
       break;
     case "chkPromptStillHere":
       options.skipStillHere = $('#chkPromptStillHere')[0].checked;
+      break;
+    case "chkDisAutoPlayInBrowse":
+      options.disableAutoPlayOnBrowse = $('#chkDisAutoPlayInBrowse')[0].checked;
       break;
   }
   saveOptions();
