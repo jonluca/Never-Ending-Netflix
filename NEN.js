@@ -55,21 +55,28 @@ function startHelper() {
 
   if (options.disableAutoPlayOnBrowse) {
     disableAutoPreview();
-    setTimeout(disableAutoPreview, 3 * 1000);
-    /*Call this twice, in case someone is on slow internet */
   }
 
 }
 
 function disableAutoPreview() {
-  $(".NFPlayer").hide();
-  let staticImage = document.querySelectorAll(".static-image");
-  if (staticImage.length) {
-    staticImage[0].style.opacity = "1";
-  }
-  let audio = document.querySelectorAll(".icon-button-audio-on");
-  if (audio.length) {
-    audio[0].click();
-  }
+  const monitor = new MutationObserver(function () {
+    $(".NFPlayer").hide();
+    let staticImage = document.querySelectorAll(".static-image");
+    if (staticImage.length) {
+      staticImage[0].style.opacity = "1";
+    }
+    let audio = document.querySelectorAll(".icon-button-audio-on");
+    if (audio.length) {
+      audio[0].click();
+    }
+  });
+
+  monitor.observe(document.querySelectorAll(".billboard-row")[0], {
+    attributes: true, // Don't monitor attribute changes
+    childList: true, //Monitor direct child elements (anything observable) changes
+    subtree: true, // Monitor all descendants
+    characterData: true // monitor direct text changes
+  });
 
 }
