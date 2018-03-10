@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Never Ending Netflix",
   "description": "Automatically play next episode, skip title sequences, skip \"Are you still watching?\" prompts, and search over 3000 genres!",
-  "version": "1.0",
+  "version": "1.1",
   "permissions": [
     "*://*.netflix.com/*",
     "*://*.netflix.co.uk/*",
