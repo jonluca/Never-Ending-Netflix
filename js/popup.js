@@ -23,6 +23,9 @@ $(() => {
       url: chrome.runtime.getURL("data/genres.json"),
       type: 'json',
       success: function (data, textStatus, jqXHR) {
+        if (typeof data === 'string') {
+          data = JSON.parse(data);
+        }
         //Handle data and status code here
         let options = {
           shouldSort: true,
