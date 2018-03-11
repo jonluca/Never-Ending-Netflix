@@ -27,7 +27,8 @@ function startHelper() {
 
   if (options.autoPlayNext) {
     /*Pulls all classes that start with "Watch Next" */
-    selectors.push("[class^=WatchNext]"); // Unknown if other international have localized class names
+    selectors.push(".WatchNext-autoplay"); // Unknown if other international have localized class names
+    selectors.push('.WatchNext-still-hover-container');
     selectors.push(".nfa-bot-6-em.nfa-right-5-em a:last-child");
     selectors.push('[aria-label^="Next episode"]');
   }
