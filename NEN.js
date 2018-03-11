@@ -37,6 +37,7 @@ function startHelper() {
     selectors.push('.postplay-button');
   }
 
+  /*Mutation observer for skippable elements*/
   const monitor = new MutationObserver(function () {
     for (const selector of selectors) {
       let elem = document.querySelectorAll(selector);
@@ -46,6 +47,7 @@ function startHelper() {
     }
   });
 
+  /*Start monitoring at react's entry point*/
   monitor.observe(document.getElementById("appMountPoint"), {
     attributes: false, // Don't monitor attribute changes
     childList: true, //Monitor direct child elements (anything observable) changes
@@ -60,7 +62,13 @@ function startHelper() {
 }
 
 function disableAutoPreview() {
+  /*Mutation observer to actually remove the auto playing video*/
   const monitor = new MutationObserver(function () {
+
+    /*
+     * This is a pretty hacky way of doing this - we hide the video player, force show the background card, and then click
+     * the mute button. TODO look into more concrete way of hiding player
+     * */
     $(".NFPlayer").hide();
     let staticImage = document.querySelectorAll(".static-image");
     if (staticImage.length) {
