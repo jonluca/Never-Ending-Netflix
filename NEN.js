@@ -72,11 +72,15 @@ function disableAutoPreview() {
     }
   });
 
-  monitor.observe(document.querySelectorAll(".billboard-row")[0], {
-    attributes: true, // Don't monitor attribute changes
-    childList: true, //Monitor direct child elements (anything observable) changes
-    subtree: true, // Monitor all descendants
-    characterData: true // monitor direct text changes
-  });
+  let billboard = document.querySelectorAll(".billboard-row");
+  if (billboard.length) {
+    monitor.observe(billboard[0], {
+      attributes: true, // Don't monitor attribute changes
+      childList: true, //Monitor direct child elements (anything observable) changes
+      subtree: true, // Monitor all descendants
+      characterData: true // monitor direct text changes
+    });
+
+  }
 
 }
