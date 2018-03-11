@@ -80,7 +80,6 @@ function disableAutoPreview() {
       subtree: true, // Monitor all descendants
       characterData: true // monitor direct text changes
     });
-
   }
 
 }

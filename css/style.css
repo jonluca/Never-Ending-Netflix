@@ -2,6 +2,9 @@ body {
     width: 400px;
     background-color: black;
     color: #B9090B;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Open Sans', sans-serif;
 }
 
 a {
@@ -62,12 +65,20 @@ input[type=range]::-webkit-slider-runnable-track {
     background: #FF0000;
 }
 
-.entry{
+.entry {
     font-size: 15px;
 }
 
 #genreSearch:focus {
     color: #B9090B;
+}
+
+.lastField {
+    padding-bottom: 10px;
+}
+
+#genreSearch::placeholder {
+    color: #e4e4e4
 }
 
 #genreSearch {
@@ -80,4 +91,6 @@ input[type=range]::-webkit-slider-runnable-track {
     border-radius: 3px;
     outline: none;
     color: #B9090B;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
