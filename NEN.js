@@ -46,6 +46,10 @@ function startHelper() {
         elem[0].click();
       }
     }
+
+    if (options.disableAutoPlayOnBrowse) {
+      disableAutoPreview();
+    }
   });
 
   /*Start monitoring at react's entry point*/
@@ -63,26 +67,25 @@ function startHelper() {
 }
 
 function disableAutoPreview() {
-  /*Mutation observer to actually remove the auto playing video*/
-  const monitor = new MutationObserver(function () {
-
-    /*
-     * This is a pretty hacky way of doing this - we hide the video player, force show the background card, and then click
-     * the mute button. TODO look into more concrete way of hiding player
-     * */
-    $(".NFPlayer").hide();
-    let staticImage = document.querySelectorAll(".static-image");
-    if (staticImage.length) {
-      staticImage[0].style.opacity = "1";
-    }
-    let audio = document.querySelectorAll(".icon-button-audio-on");
-    if (audio.length) {
-      audio[0].click();
-    }
-  });
-
+  // let hasMuted = false;
   let billboard = document.querySelectorAll(".billboard-row");
   if (billboard.length) {
+
+    /*Mutation observer to actually remove the auto playing video*/
+    const monitor = new MutationObserver(function () {
+      // if (!hasMuted) {
+      //   hasMuted = true;
+      //   /*
+      //    * This is a pretty hacky way of doing this - we hide the video player, force show the background card, and
+      // then click * the mute button. TODO look into more concrete way of hiding player * */ $(".NFPlayer").hide();
+      // let staticImage = document.querySelectorAll(".static-image"); if (staticImage.length) {
+      // staticImage[0].style.opacity = "1"; } let audio = billboard[0].querySelector(".icon-button-audio-on"); if
+      // (audio) { audio.click(); } }
+
+      // This removes the top billboard entirely - that's better than the hacky way that was being done above
+      $(".billboard-row").remove();
+    });
+
     monitor.observe(billboard[0], {
       attributes: true, // Don't monitor attribute changes
       childList: true, //Monitor direct child elements (anything observable) changes
