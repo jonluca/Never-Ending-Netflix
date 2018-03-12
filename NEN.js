@@ -8,7 +8,7 @@ function onMessage(message, sender, sendResponse) {
 }
 
 $(() => {
-  loadOptions(function (receivedOptions) {
+  loadOptions(receivedOptions => {
     options = receivedOptions;
     if (receivedOptions.skipTitleSequence) {
       startHelper();
@@ -16,30 +16,42 @@ $(() => {
   });
 });
 
+function enableAutoPlayNext(selectors) {
+  /*Pulls all classes that start with "Watch Next" */
+  selectors.push(".WatchNext-autoplay"); // Unknown if other international have localized class names
+  selectors.push('.WatchNext-still-hover-container');
+  selectors.push(".nfa-bot-6-em.nfa-right-5-em a:last-child");
+  selectors.push('[aria-label^="Next episode"]');
+}
+
+function enableSkipTitleSequence(selectors) {
+  /*Skip title sequence*/
+  selectors.push('[aria-label="Skip Intro"]'); // American version will have this text, most reliable
+  selectors.push('.skip-credits > a'); // Also include first descendant of skip-credits, in case it's international?
+}
+
+function enableSkipStillHere(selectors) {
+  selectors.push('.postplay-button');
+}
+
 function startHelper() {
   let selectors = [];
 
   if (options.skipTitleSequence) {
-    /*Skip title sequence*/
-    selectors.push('[aria-label="Skip Intro"]'); // American version will have this text, most reliable
-    selectors.push('.skip-credits > a'); // Also include first descendant of skip-credits, in case it's international?
+    enableSkipTitleSequence(selectors);
   }
 
   if (options.autoPlayNext) {
-    /*Pulls all classes that start with "Watch Next" */
-    selectors.push(".WatchNext-autoplay"); // Unknown if other international have localized class names
-    selectors.push('.WatchNext-still-hover-container');
-    selectors.push(".nfa-bot-6-em.nfa-right-5-em a:last-child");
-    selectors.push('[aria-label^="Next episode"]');
+    enableAutoPlayNext(selectors);
   }
 
   if (options.skipStillHere) {
     /* Skip if still watching*/
-    selectors.push('.postplay-button');
+    enableSkipStillHere(selectors);
   }
 
   /*Mutation observer for skippable elements*/
-  const monitor = new MutationObserver(function () {
+  const monitor = new MutationObserver(() => {
     for (const selector of selectors) {
       let elem = document.querySelectorAll(selector);
       if (elem && elem.length) {
@@ -70,18 +82,8 @@ function disableAutoPreview() {
   // let hasMuted = false;
   let billboard = document.querySelectorAll(".billboard-row");
   if (billboard.length) {
-
     /*Mutation observer to actually remove the auto playing video*/
-    const monitor = new MutationObserver(function () {
-      // if (!hasMuted) {
-      //   hasMuted = true;
-      //   /*
-      //    * This is a pretty hacky way of doing this - we hide the video player, force show the background card, and
-      // then click * the mute button. TODO look into more concrete way of hiding player * */ $(".NFPlayer").hide();
-      // let staticImage = document.querySelectorAll(".static-image"); if (staticImage.length) {
-      // staticImage[0].style.opacity = "1"; } let audio = billboard[0].querySelector(".icon-button-audio-on"); if
-      // (audio) { audio.click(); } }
-
+    const monitor = new MutationObserver(() => {
       // This removes the top billboard entirely - that's better than the hacky way that was being done above
       $(".billboard-row").remove();
     });
