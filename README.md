@@ -1,6 +1,6 @@
 # Never Ending Netflix
 
-NEN is a chrome extension that improves the Netflix experience for power users. It's features include:
+[NEN](https://chrome.google.com/webstore/detail/hdadmgabliibighlbejhlglfjgplfmhb) is a chrome extension that improves the Netflix experience for power users. It's features include:
 
 * Automatically skip intros
 * Automatically play the next episode
