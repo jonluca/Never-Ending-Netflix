@@ -33,13 +33,8 @@ function reloadSearchLibrary() {
   $.ajax({
     method: 'GET',
     url: chrome.runtime.getURL("data/genres.json"),
-    type: 'json',
+    dataType: 'json',
     success: function (data, textStatus, jqXHR) {
-
-      if (typeof data === "string") {
-        data = JSON.parse(data); // Fix for windows - even though type is json and file extension is json, it'll still
-                                 // read it as string
-      }
       let options = {
         shouldSort: true,
         threshold: 0.6,
