@@ -12,6 +12,7 @@ $(() => {
     $("#chkPromptStillHere").prop('checked', options.skipStillHere);
     $("#chkPlayNext").prop('checked', options.autoPlayNext);
     $("#chkDisAutoPlayInBrowse").prop('checked', options.disableAutoPlayOnBrowse);
+    $("#chkHideDownvoted").prop('checked', options.hideDisliked);
     $('input:checked').trigger('gumby.check');
 
     $('input').parent().on('gumby.onChange', function () {
@@ -88,6 +89,10 @@ function changeOption(elem) {
     case "chkDisAutoPlayInBrowse":
       options.disableAutoPlayOnBrowse = $('#chkDisAutoPlayInBrowse')[0].checked;
       break;
+    case "chkHideDownvoted":
+      options.hideDisliked = $('#chkHideDownvoted')[0].checked;
+      break;
+
   }
   saveOptions();
 

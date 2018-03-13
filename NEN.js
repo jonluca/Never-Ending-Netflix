@@ -11,28 +11,14 @@ $(() => {
   loadOptions(receivedOptions => {
     options = receivedOptions;
     if (receivedOptions.skipTitleSequence) {
+      // It's a react app, so anytime they navigate away or to another title, we need to rehide/do all our options
+      $('.main-header').on('click', '*', function () {
+        startHelper();
+      });
       startHelper();
     }
   });
 });
-
-function enableAutoPlayNext(selectors) {
-  /*Pulls all classes that start with "Watch Next" */
-  selectors.push(".WatchNext-autoplay"); // Unknown if other international have localized class names
-  selectors.push('.WatchNext-still-hover-container');
-  selectors.push(".nfa-bot-6-em.nfa-right-5-em a:last-child");
-  selectors.push('[aria-label^="Next episode"]');
-}
-
-function enableSkipTitleSequence(selectors) {
-  /*Skip title sequence*/
-  selectors.push('[aria-label="Skip Intro"]'); // American version will have this text, most reliable
-  selectors.push('.skip-credits > a'); // Also include first descendant of skip-credits, in case it's international?
-}
-
-function enableSkipStillHere(selectors) {
-  selectors.push('.postplay-button');
-}
 
 function startHelper() {
   let selectors = [];
@@ -48,6 +34,10 @@ function startHelper() {
   if (options.skipStillHere) {
     /* Skip if still watching*/
     enableSkipStillHere(selectors);
+  }
+
+  if (options.hideDisliked) {
+    hideDisliked();
   }
 
   /*Mutation observer for skippable elements*/
@@ -96,4 +86,54 @@ function disableAutoPreview() {
     });
   }
 
+}
+
+function enableAutoPlayNext(selectors) {
+  /*Pulls all classes that start with "Watch Next" */
+  selectors.push(".WatchNext-autoplay"); // Unknown if other international have localized class names
+  selectors.push('.WatchNext-still-hover-container');
+  selectors.push(".nfa-bot-6-em.nfa-right-5-em a:last-child");
+  selectors.push('[aria-label^="Next episode"]');
+}
+
+function enableSkipTitleSequence(selectors) {
+  /*Skip title sequence*/
+  selectors.push('[aria-label="Skip Intro"]'); // American version will have this text, most reliable
+  selectors.push('.skip-credits > a'); // Also include first descendant of skip-credits, in case it's international?
+}
+
+function enableSkipStillHere(selectors) {
+  selectors.push('.postplay-button');
+}
+
+function hideDisliked() {
+  const monitor = new MutationObserver(() => {
+    let disliked = $(".is-disliked");
+    /*jQuery will return an array if multiple, or a single object if only one. .each will throw an error if it's only one*/
+    if (Array.isArray(disliked)) {
+      for (let card of disliked) {
+        hideSliderItem(card);
+      }
+    } else {
+      hideSliderItem(disliked);
+    }
+  });
+  let mainCardView = document.getElementsByClassName("lolomo");
+  if (mainCardView.length) {
+    /*Start monitoring at react's entry point*/
+    monitor.observe(mainCardView[0], {
+      attributes: false, // Don't monitor attribute changes
+      childList: true, //Monitor direct child elements (anything observable) changes
+      subtree: true, // Monitor all descendants
+      characterData: false // monitor direct text changes
+    });
+  }
+
+}
+
+function hideSliderItem(elem) {
+  let parent = $(elem).parents(".slider-item");
+  if (parent.length) {
+    $(parent[0]).remove();
+  }
 }
