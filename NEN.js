@@ -22,7 +22,6 @@ $(_ => {
     }
   });
 });
-let mutation;
 
 function startMonitoringForSelectors(selectors, numTries) {
   /*Mutation observer for skippable elements*/
@@ -49,7 +48,7 @@ function startMonitoringForSelectors(selectors, numTries) {
     }
   });
 
-  let reactEntry = document.querySelector(".sizing-wrapperj");
+  let reactEntry = document.querySelector(".sizing-wrapper");
   if (reactEntry) {
     /*Start monitoring at react's entry point*/
     monitor.observe(reactEntry, {
@@ -57,7 +56,6 @@ function startMonitoringForSelectors(selectors, numTries) {
       childList: true, //Monitor direct child elements (anything observable) changes
       subtree: true // Monitor all descendants
     });
-    mutation = monitor;
   } else {
     if (numTries > MAX_TRIES_MONITOR_SKIP) {
       return;
