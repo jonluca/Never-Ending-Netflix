@@ -48,7 +48,7 @@ function startMonitoringForSelectors(selectors, numTries) {
     }
   });
 
-  let reactEntry = document.querySelector(".sizing-wrapper");
+  let reactEntry = document.getElementById("appMountPoint");
   if (reactEntry) {
     /*Start monitoring at react's entry point*/
     monitor.observe(reactEntry, {
