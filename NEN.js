@@ -100,6 +100,7 @@ function enableSkipTitleSequence(selectors) {
   /*Skip title sequence*/
   selectors.push('[aria-label="Skip Intro"]'); // American version will have this text, most reliable
   selectors.push('.skip-credits > a'); // Also include first descendant of skip-credits, in case it's international?
+  selectors.push('[aria-label="Play"]'); //If the play button is clickable after skipped intro, it should be clicked.
 }
 
 function enableSkipStillHere(selectors) {
