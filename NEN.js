@@ -1,13 +1,16 @@
 let options = {};
 chrome.runtime.onMessage.addListener(onMessage);
 
+const MAX_TRIES_DISABLE_AUTO_PREVIEW = 5;
+const MAX_TRIES_MONITOR_SKIP = 10;
+
 function onMessage(message, sender, sendResponse) {
   if (message.action === 'optionsChanged') {
     options = message.options;
   }
 }
 
-$(() => {
+$(_ => {
   loadOptions(receivedOptions => {
     options = receivedOptions;
     if (receivedOptions.skipTitleSequence) {
@@ -19,6 +22,51 @@ $(() => {
     }
   });
 });
+let mutation;
+
+function startMonitoringForSelectors(selectors, numTries) {
+  /*Mutation observer for skippable elements*/
+  const monitor = new MutationObserver(_ => {
+    let selector = selectors.join(', ');
+    let elems = document.querySelectorAll(selector);
+    for (const elem of elems) {
+      elem.click();
+    }
+    let elementWasClicked = elems.length !== 0;
+    if (elementWasClicked) {
+      // After the Netflix redesign of Q4 2018 the show would pause after skipping the intro - this *should* reenable it
+      // after a 150ms delay. Ideally we'd have a more deterministic way of doing this but this should be the most
+      // resilient to future changes
+      setTimeout(_ => {
+        let playButton = document.querySelector('.button-nfplayerPlay');
+        if (playButton) {
+          playButton.click();
+        }
+      }, 150);
+    }
+    if (options.disableAutoPlayOnBrowse) {
+      disableAutoPreview();
+    }
+  });
+
+  let reactEntry = document.querySelector(".sizing-wrapperj");
+  if (reactEntry) {
+    /*Start monitoring at react's entry point*/
+    monitor.observe(reactEntry, {
+      attributes: false, // Don't monitor attribute changes
+      childList: true, //Monitor direct child elements (anything observable) changes
+      subtree: true // Monitor all descendants
+    });
+    mutation = monitor;
+  } else {
+    if (numTries > MAX_TRIES_MONITOR_SKIP) {
+      return;
+    }
+    setTimeout(_ => {
+      startMonitoringForSelectors(selectors, ++numTries);
+    }, 100 * numTries);
+  }
+}
 
 function startHelper() {
   let selectors = [];
@@ -40,52 +88,26 @@ function startHelper() {
     hideDisliked();
   }
 
-  /*Mutation observer for skippable elements*/
-  const monitor = new MutationObserver(() => {
-    for (const selector of selectors) {
-      let elem = document.querySelectorAll(selector);
-      if (elem && elem.length) {
-        elem[0].click();
-      }
-    }
-
-    if (options.disableAutoPlayOnBrowse) {
-      disableAutoPreview();
-    }
-  });
-
-  /*Start monitoring at react's entry point*/
-  monitor.observe(document.getElementById("appMountPoint"), {
-    attributes: false, // Don't monitor attribute changes
-    childList: true, //Monitor direct child elements (anything observable) changes
-    subtree: true, // Monitor all descendants
-    characterData: true // monitor direct text changes
-  });
-
   if (options.disableAutoPlayOnBrowse) {
-    disableAutoPreview();
+    let numTries = 0;
+    disableAutoPreview(numTries);
   }
 
+  startMonitoringForSelectors(selectors, 0);
 }
 
-function disableAutoPreview() {
-  // let hasMuted = false;
-  let billboard = document.querySelectorAll(".billboard-row");
-  if (billboard.length) {
-    /*Mutation observer to actually remove the auto playing video*/
-    const monitor = new MutationObserver(() => {
-      // This removes the top billboard entirely - that's better than the hacky way that was being done above
-      $(".billboard-row").remove();
-    });
-
-    monitor.observe(billboard[0], {
-      attributes: true, // Don't monitor attribute changes
-      childList: true, //Monitor direct child elements (anything observable) changes
-      subtree: true, // Monitor all descendants
-      characterData: true // monitor direct text changes
-    });
+function disableAutoPreview(numTries) {
+  let billboard = document.querySelector('.billboard-row');
+  if (billboard) {
+    billboard.remove();
+  } else {
+    if (numTries > MAX_TRIES_DISABLE_AUTO_PREVIEW) {
+      return;
+    }
+    setTimeout(_ => {
+      disableAutoPreview(++numTries);
+    }, numTries * 150);
   }
-
 }
 
 function enableAutoPlayNext(selectors) {
@@ -107,15 +129,15 @@ function enableSkipStillHere(selectors) {
 }
 
 function hideDisliked() {
-  const monitor = new MutationObserver(() => {
-    let disliked = $(".is-disliked");
+  const monitor = new MutationObserver(_ => {
+    if (window.location.pathname === "/search") {
+      // Don't hide cards on search page, you might actually be searching for a disliked title
+      return;
+    }
+    let disliked = document.getElementsByClassName("is-disliked");
     /*jQuery will return an array if multiple, or a single object if only one. .each will throw an error if it's only one*/
-    if (Array.isArray(disliked)) {
-      for (let card of disliked) {
-        hideSliderItem(card);
-      }
-    } else {
-      hideSliderItem(disliked);
+    for (let card of disliked) {
+      hideSliderItem(card);
     }
   });
   let mainCardView = document.getElementsByClassName("lolomo");
@@ -123,7 +145,7 @@ function hideDisliked() {
     /*Start monitoring at react's entry point*/
     monitor.observe(mainCardView[0], {
       attributes: false, // Don't monitor attribute changes
-      childList: true, //Monitor direct child elements (anything observable) changes
+      childList: true, // Monitor direct child elements (anything observable) changes
       subtree: true, // Monitor all descendants
       characterData: false // monitor direct text changes
     });
@@ -132,8 +154,8 @@ function hideDisliked() {
 }
 
 function hideSliderItem(elem) {
-  let parent = $(elem).parents(".slider-item");
-  if (parent.length) {
-    $(parent[0]).remove();
+  let parent = elem.closest(".slider-item");
+  if (parent) {
+    parent.remove();
   }
 }
