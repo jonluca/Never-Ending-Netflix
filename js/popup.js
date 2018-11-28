@@ -11,6 +11,7 @@ $(() => {
     $("#chkTitleSequence").prop('checked', options.skipTitleSequence);
     $("#chkPromptStillHere").prop('checked', options.skipStillHere);
     $("#chkPlayNext").prop('checked', options.autoPlayNext);
+    $("#chkWatchCredits").prop('checked', options.watchCredits);
     $("#chkDisAutoPlayInBrowse").prop('checked', options.disableAutoPlayOnBrowse);
     $("#chkHideDownvoted").prop('checked', options.hideDisliked);
     $('input:checked').trigger('gumby.check');
@@ -77,6 +78,11 @@ function changeOption(elem) {
       break;
     case "chkPlayNext":
       options.autoPlayNext = $('#chkPlayNext')[0].checked;
+      if (options.autoPlayNext && options.watchCredits) {
+        options.watchCredits = false;
+        // Uncheck the watch credits checkbox, as you can't both watch the credits and skip them
+        $('#chkWatchCredits').click();
+      }
       break;
     case "chkPromptStillHere":
       options.skipStillHere = $('#chkPromptStillHere')[0].checked;
@@ -84,16 +90,24 @@ function changeOption(elem) {
     case "chkDisAutoPlayInBrowse":
       options.disableAutoPlayOnBrowse = $('#chkDisAutoPlayInBrowse')[0].checked;
       break;
+    case "chkWatchCredits":
+      options.watchCredits = $('#chkWatchCredits')[0].checked;
+      if (options.autoPlayNext && options.watchCredits) {
+        options.autoPlayNext = false;
+        // Uncheck the auto play next checkbox, as you can't both watch the credits and skip them
+        $("#chkPlayNext").click();
+      }
+      break;
     case "chkHideDownvoted":
       options.hideDisliked = $('#chkHideDownvoted')[0].checked;
       break;
-
   }
   saveOptions();
 
 }
 
 function saveOptions() {
+  console.log(options);
   chrome.storage.sync.set({
     'options': options
   }, () => {

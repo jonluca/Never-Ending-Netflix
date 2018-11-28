@@ -30,6 +30,12 @@ function startMonitoringForSelectors(selectors, numTries) {
     let elems = document.querySelectorAll(selector);
     for (const elem of elems) {
       elem.click();
+      // If the "Watch Credits" option is selected, it'll click "Watch Credits". The button does not disappear, though,
+      // and keeps getting pressed. We need to check if it has credits in it's aria, and remove the button if so
+      let attribute = elem.getAttribute("aria-label");
+      if (attribute && attribute.indexOf("credits") !== -1) {
+        elem.remove();
+      }
     }
     let elementWasClicked = elems.length !== 0;
     if (elementWasClicked) {
@@ -86,6 +92,10 @@ function startHelper() {
     hideDisliked();
   }
 
+  if (options.watchCredits) {
+    watchCredits(selectors);
+  }
+
   if (options.disableAutoPlayOnBrowse) {
     let numTries = 0;
     disableAutoPreview(numTries);
@@ -124,6 +134,10 @@ function enableSkipTitleSequence(selectors) {
 
 function enableSkipStillHere(selectors) {
   selectors.push('.postplay-button');
+}
+
+function watchCredits(selectors) {
+  selectors.push('[aria-label^="Watch credits"]');
 }
 
 function hideDisliked() {

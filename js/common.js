@@ -9,6 +9,7 @@ function loadOptions(callback) {
 
     options.skipStillHere = options.hasOwnProperty('skipStillHere') ? options.skipStillHere : true;
     options.autoPlayNext = options.hasOwnProperty('autoPlayNext') ? options.autoPlayNext : true;
+    options.watchCredits = options.hasOwnProperty('watchCredits') ? options.watchCredits : false;
     options.skipTitleSequence = options.hasOwnProperty('skipTitleSequence') ? options.skipTitleSequence : true;
     options.disableAutoPlayOnBrowse = options.hasOwnProperty('disableAutoPlayOnBrowse') ? options.disableAutoPlayOnBrowse : false;
     options.hideDisliked = options.hasOwnProperty('hideDisliked') ? options.hideDisliked : false;
