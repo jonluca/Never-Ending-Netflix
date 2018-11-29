@@ -149,6 +149,8 @@ function enableSkipTitleSequence(selectors) {
 
 function enableSkipStillHere(selectors) {
   selectors.push('.postplay-button');
+  selectors.push('.continue-playing');
+  selectors.push('.player-postplay-still-hover-container');
 }
 
 function watchCredits(selectors) {
@@ -162,7 +164,6 @@ function hideDisliked() {
       return;
     }
     let disliked = document.getElementsByClassName("is-disliked");
-    /*jQuery will return an array if multiple, or a single object if only one. .each will throw an error if it's only one*/
     for (let card of disliked) {
       hideSliderItem(card);
     }
