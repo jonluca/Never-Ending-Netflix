@@ -16,7 +16,7 @@ function loadOptions(callback) {
 
     chrome.storage.sync.set({
       'options': options
-    }, () => {
+    }, _ => {
       callback(options);
     });
   });

@@ -8,12 +8,15 @@ $(() => {
   });
   loadOptions(function (recOptions) {
     options = recOptions;
+    // Set values on page to those saved
     $("#chkTitleSequence").prop('checked', options.skipTitleSequence);
     $("#chkPromptStillHere").prop('checked', options.skipStillHere);
     $("#chkPlayNext").prop('checked', options.autoPlayNext);
     $("#chkWatchCredits").prop('checked', options.watchCredits);
     $("#chkDisAutoPlayInBrowse").prop('checked', options.disableAutoPlayOnBrowse);
     $("#chkHideDownvoted").prop('checked', options.hideDisliked);
+
+    // Trigger gumby update to show visual changes
     $('input:checked').trigger('gumby.check');
 
     $('input').parent().on('gumby.onChange', function () {
@@ -26,8 +29,7 @@ $(() => {
 });
 
 function constructResultDiv(elem) {
-  let divString = `<div class='entry'><a href="${elem.link}">${elem.genre}</a></div>`;
-  return divString;
+  return `<div class='entry'><a href="${elem.link}">${elem.genre}</a></div>`;
 }
 
 function reloadSearchLibrary() {
@@ -42,7 +44,7 @@ function reloadSearchLibrary() {
         location: 0,
         distance: 100,
         maxPatternLength: 32,
-        minMatchCharLength: 3,
+        minMatchCharLength: 1,
         keys: ["genre"]
       };
       fuse = new Fuse(data, options); // Text search library through all genres
@@ -53,20 +55,22 @@ function reloadSearchLibrary() {
 function searchOnTypingListener() {
   /*Event listenere for typing in genre*/
   $('#genreSearch').on('keyup', function () {
+    // Clear previous results
     $("#results").html("");
-    if (this.value.length > 1 && fuse != undefined) {
-      /* Clear div results*/
+    // If fuse is loaded, do a search
+    if (fuse) {
       // do search for this.value here
-      var results = fuse.search(this.value);
+      let results = fuse.search(this.value);
       if (results.length) {
-        for (let i = 0; i < 100; i++) {
-          if (results.length === i - 1) {
-            break;
-          }
-          let entry = constructResultDiv(results[i]);
-          $("#results").append(entry);
+        let max = results.length < 100 ? results.length : 100;
+        let entry = "";
+        for (let i = 0; i < max; i++) {
+          entry += constructResultDiv(results[i]);
         }
+        $("#results").append(entry);
       }
+    } else {
+      $("#results").append("<div class='entry'>Genres not loaded! Contact developer if issue persists.</div>");
     }
   });
 }
