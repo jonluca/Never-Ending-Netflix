@@ -48,18 +48,6 @@ function startMonitoringForSelectors(selectors, numTries) {
         elem.click();
       }
     }
-    let elementWasClicked = elems.length !== 0;
-    if (elementWasClicked) {
-      // After the Netflix redesign of Q4 2018 the show would pause after skipping the intro - this *should* reenable it
-      // after a 150ms delay. Ideally we'd have a more deterministic way of doing this but this should be the most
-      // resilient to future changes
-      setTimeout(_ => {
-        let playButton = document.querySelector('.button-nfplayerPlay');
-        if (playButton) {
-          playButton.click();
-        }
-      }, 250);
-    }
     if (options.disableAutoPlayOnBrowse) {
       disableAutoPreview();
     }
