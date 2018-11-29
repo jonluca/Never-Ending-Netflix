@@ -1,0 +1,10 @@
+{
+  "manifest_name": {
+    "message": "Never Ending Netflix",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "manifest_description": {
+    "message": "Automatically play next episode, skip title sequences, skip \"Are you still watching?\" prompts, and search over 3000 genres!",
+    "description": "The description of the application, displayed in the web store."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "manifest_name": {
+    "message": "Netflix Wird Nie Beendet",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "manifest_description": {
+    "message": "Automatische Wiedergabe der nächsten Episode, Überspringen von Titelsequenzen, Überspringen \"Sehen Sie immer noch?\" Eingabeaufforderungen und suchen Sie über 3000 Genres!",
+    "description": "The description of the application, displayed in the web store."
+  }
+}

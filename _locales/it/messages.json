@@ -1,0 +1,10 @@
+{
+  "manifest_name": {
+    "message": "",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "manifest_description": {
+    "message": "Riproduci automaticamente l'episodio successivo, salta le sequenze di titoli, salta \"Stai ancora guardando?\" richiede e cerca oltre 3000 generi!",
+    "description": "The description of the application, displayed in the web store."
+  }
+}

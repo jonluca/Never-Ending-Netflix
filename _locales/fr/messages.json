@@ -1,0 +1,8 @@
+{
+  "manifest_name": {
+    "message": "Netflix Sans Fin"
+  },
+  "manifest_description": {
+    "message": "Lire automatiquement le prochain épisode, ignorer les séquences de titres, ignorer \"Êtes-vous toujours en train de regarder?\" invite et recherchez plus de 3000 genres!"
+  }
+}

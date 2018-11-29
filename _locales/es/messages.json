@@ -1,0 +1,10 @@
+{
+  "manifest_name": {
+    "message": "Nunca Terminando Netflix",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "manifest_description": {
+    "message": "Reproduce automáticamente el siguiente episodio, salta secuencias de títulos, salta \"¿Sigues viendo?\" Inicia sesión, y busca en más de 3000 géneros!",
+    "description": "The description of the application, displayed in the web store."
+  }
+}
