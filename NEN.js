@@ -38,7 +38,9 @@ function startMonitoringForSelectors(selectors, numTries) {
         if (!hasSkippedInLastSecond) {
           hasSkippedInLastSecond = true;
           // click element after 200ms, so that we don't trigger the pause?
-          setTimeout(elem.click, 200);
+          setTimeout(_ => {
+            elem.click();
+          }, 200);
           setTimeout(_ => {
             hasSkippedInLastSecond = false;
           }, 1000);
