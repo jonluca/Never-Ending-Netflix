@@ -3,6 +3,7 @@ chrome.runtime.onMessage.addListener(onMessage);
 
 const MAX_TRIES_DISABLE_AUTO_PREVIEW = 5;
 const MAX_TRIES_MONITOR_SKIP = 10;
+let hasSkippedInLastSecond = false;
 
 function onMessage(message, sender, sendResponse) {
   if (message.action === 'optionsChanged') {
@@ -27,12 +28,24 @@ function startMonitoringForSelectors(selectors, numTries) {
     let selector = selectors.join(', ');
     let elems = document.querySelectorAll(selector);
     for (const elem of elems) {
-      elem.click();
+      let attribute = elem.getAttribute("aria-label");
       // If the "Watch Credits" option is selected, it'll click "Watch Credits". The button does not disappear, though,
       // and keeps getting pressed. We need to check if it has credits in it's aria, and remove the button if so
-      let attribute = elem.getAttribute("aria-label");
       if (attribute && attribute.indexOf("credits") !== -1) {
         elem.remove();
+      } else if (attribute === "Skip Intro") {
+        // This function will be triggered multiple times - make sure we only click "Skip" once every second
+        if (!hasSkippedInLastSecond) {
+          hasSkippedInLastSecond = true;
+          // click element after 200ms, so that we don't trigger the pause?
+          setTimeout(elem.click, 200);
+          setTimeout(_ => {
+            hasSkippedInLastSecond = false;
+          }, 1000);
+        }
+
+      } else {
+        elem.click();
       }
     }
     let elementWasClicked = elems.length !== 0;
@@ -45,7 +58,7 @@ function startMonitoringForSelectors(selectors, numTries) {
         if (playButton) {
           playButton.click();
         }
-      }, 150);
+      }, 250);
     }
     if (options.disableAutoPlayOnBrowse) {
       disableAutoPreview();
@@ -64,8 +77,9 @@ function startMonitoringForSelectors(selectors, numTries) {
     if (numTries > MAX_TRIES_MONITOR_SKIP) {
       return;
     }
+    numTries++;
     setTimeout(_ => {
-      startMonitoringForSelectors(selectors, ++numTries);
+      startMonitoringForSelectors(selectors, numTries);
     }, 100 * numTries);
   }
 }
@@ -111,7 +125,8 @@ function disableAutoPreview(numTries) {
       return;
     }
     setTimeout(_ => {
-      disableAutoPreview(++numTries);
+      numTries++;
+      disableAutoPreview(numTries);
     }, numTries * 150);
   }
 }
@@ -166,6 +181,6 @@ function hideDisliked() {
 function hideSliderItem(elem) {
   let parent = elem.closest(".slider-item");
   if (parent) {
-    parent.remove();
+    parent.style.display = "none";
   }
 }
