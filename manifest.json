@@ -51,7 +51,7 @@
         "*://*.netflix.es/*"
       ],
       "js": [
-        "js/jquery.js",
+        "js/libs/jquery.js",
         "js/common.js",
         "NEN.js"
       ]
