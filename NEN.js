@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener(onMessage);
 
 const MAX_TRIES_DISABLE_AUTO_PREVIEW = 5;
 const MAX_TRIES_MONITOR_SKIP = 10;
-let hasSkippedInLastSecond = false;
+let hasClickedRecently = false;
 
 function onMessage(message, sender, sendResponse) {
   if (message.action === 'optionsChanged') {
@@ -35,15 +35,15 @@ function startMonitoringForSelectors(selectors, numTries) {
         elem.remove();
       } else if (attribute === "Skip Intro") {
         // This function will be triggered multiple times - make sure we only click "Skip" once every second
-        if (!hasSkippedInLastSecond) {
-          hasSkippedInLastSecond = true;
-          // click element after 200ms, so that we don't trigger the pause?
+        if (!hasClickedRecently) {
+          hasClickedRecently = true;
+          // click element after 1s, so that we don't trigger the pause?
           setTimeout(_ => {
             elem.click();
-          }, 500);
-          setTimeout(_ => {
-            hasSkippedInLastSecond = false;
           }, 1000);
+          setTimeout(_ => {
+            hasClickedRecently = false;
+          }, 3000);
         }
 
       } else {
@@ -51,7 +51,7 @@ function startMonitoringForSelectors(selectors, numTries) {
       }
     }
     let elementWasClicked = elems.length !== 0;
-    if (elementWasClicked && hasSkippedInLastSecond) {
+    if (elementWasClicked && hasClickedRecently) {
       // After the Netflix redesign of Q4 2018 the show would pause after skipping the intro - this *should* reenable it
       // after a 150ms delay. Ideally we'd have a more deterministic way of doing this but this should be the most
       // resilient to future changes
@@ -60,7 +60,7 @@ function startMonitoringForSelectors(selectors, numTries) {
         if (playButton) {
           playButton.click();
         }
-      }, 400);
+      }, 1000);
     }
     if (options.disableAutoPlayOnBrowse) {
       disableAutoPreview();
