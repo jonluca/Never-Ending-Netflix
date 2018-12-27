@@ -3,7 +3,9 @@ let fuse;
 
 $(() => {
   $('body').on('click', 'a', function () {
-    chrome.tabs.create({url: $(this).attr('href')});
+    if (this && $(this).attr('href')) {
+      chrome.tabs.create({url: $(this).attr('href')});
+    }
     return false;
   });
   loadOptions(function (recOptions) {
@@ -16,6 +18,14 @@ $(() => {
     $("#chkDisAutoPlayInBrowse").prop('checked', options.disableAutoPlayOnBrowse);
     $("#chkHideDownvoted").prop('checked', options.hideDisliked);
 
+    if (options.highContrast) {
+      $("#contrast").text("Normal Contrast Mode");
+      $("#contrast").attr('data-value', "high");
+    } else {
+      $("#contrast").text("High Contrast Mode");
+      $("#contrast").attr('data-value', "low");
+    }
+
     // Trigger gumby update to show visual changes
     $('input:checked').trigger('gumby.check');
 
@@ -25,8 +35,42 @@ $(() => {
 
     reloadSearchLibrary();
     searchOnTypingListener();
+    registerContrastModeHandler();
+    setContrastMode();
   });
 });
+
+function registerContrastModeHandler() {
+  $("#contrast").click(e => {
+    if ($("#contrast").attr('data-value') === "high") {
+      $("#contrast").attr('data-value', "low");
+      options.highContrast = false;
+      $("#contrast").text("High Contrast Mode");
+    } else {
+      $("#contrast").attr('data-value', "high");
+      options.highContrast = true;
+      $("#contrast").text("Normal Contrast Mode");
+    }
+    saveOptions();
+    setContrastMode();
+  });
+}
+
+function setContrastMode() {
+  if (options.highContrast) {
+    $("body").addClass("high-contrast");
+    $("a").addClass("high-contrast");
+    $("#genreSearch").addClass("high-contrast");
+    $(".checkBackground").addClass("high-contrast");
+    $(".checkBackground").removeClass("checkBackground");
+  } else {
+    $("body").removeClass("high-contrast");
+    $("a").removeClass("high-contrast");
+    $(".high-contrast").addClass("checkBackground");
+    $("#genreSearch").removeClass("high-contrast");
+    $(".high-contrast").removeClass("high-contrast");
+  }
+}
 
 function constructResultDiv(elem) {
   return `<div class='entry'><a href="${elem.link}">${elem.genre}</a></div>`;

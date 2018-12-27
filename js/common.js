@@ -13,6 +13,7 @@ function loadOptions(callback) {
     options.skipTitleSequence = options.hasOwnProperty('skipTitleSequence') ? options.skipTitleSequence : true;
     options.disableAutoPlayOnBrowse = options.hasOwnProperty('disableAutoPlayOnBrowse') ? options.disableAutoPlayOnBrowse : false;
     options.hideDisliked = options.hasOwnProperty('hideDisliked') ? options.hideDisliked : false;
+    options.highContrast = options.hasOwnProperty('highContrast') ? options.highContrast : false;
 
     chrome.storage.sync.set({
       'options': options

@@ -1,5 +1,5 @@
 body {
-  width: 400px;
+  width: 500px;
   background-color: black;
   color: #B9090B;
   -webkit-font-smoothing: antialiased;
@@ -44,7 +44,7 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .footer {
-  font-size: 60%;
+  font-size: 75%;
   padding-bottom: 5px;
   display: inline;
 }
@@ -97,4 +97,37 @@ input[type=range]::-webkit-slider-runnable-track {
   color: #B9090B;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#contrast {
+  cursor: pointer;
+}
+
+
+.high-contrast {
+  background-color: white !important;
+  color: black;
+}
+
+.high-contrast a {
+  color: black !important;
+}
+
+
+.high-contrast #genreSearch {
+  float: left;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #B9090B;
+  padding: 5px;
+  height: 30px;
+  border-radius: 3px;
+  outline: none;
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.high-contrast #genreSearch::placeholder {
+  color: #464646;
 }
