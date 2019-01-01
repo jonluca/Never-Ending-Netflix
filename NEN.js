@@ -3,7 +3,6 @@ chrome.runtime.onMessage.addListener(onMessage);
 
 const MAX_TRIES_DISABLE_AUTO_PREVIEW = 5;
 const MAX_TRIES_MONITOR_SKIP = 10;
-let hasClickedRecently = false;
 
 function onMessage(message, sender, sendResponse) {
   if (message.action === 'optionsChanged') {
@@ -34,33 +33,26 @@ function startMonitoringForSelectors(selectors, numTries) {
       if (attribute && attribute.indexOf("credits") !== -1) {
         elem.remove();
       } else if (attribute === "Skip Intro") {
-        // This function will be triggered multiple times - make sure we only click "Skip" once every second
-        if (!hasClickedRecently) {
-          hasClickedRecently = true;
-          // click element after 1s, so that we don't trigger the pause?
-          setTimeout(_ => {
-            elem.click();
-          }, 1000);
-          setTimeout(_ => {
-            hasClickedRecently = false;
-          }, 3000);
+
+        doClick(elem).then(_ => {
+          doGetPlayButton();
+        });
+
+        function doClick(n) {
+          return new Promise(function (resolve) {
+            resolve(n.firstChild.click());
+          });
         }
 
+        function doGetPlayButton() {
+          let evt = document.createEvent('Event');
+          evt.initEvent('playEvent', true, false);
+          // fire the event
+          document.dispatchEvent(evt);
+        }
       } else {
         elem.click();
       }
-    }
-    let elementWasClicked = elems.length !== 0;
-    if (elementWasClicked && hasClickedRecently) {
-      // After the Netflix redesign of Q4 2018 the show would pause after skipping the intro - this *should* reenable it
-      // after a 150ms delay. Ideally we'd have a more deterministic way of doing this but this should be the most
-      // resilient to future changes
-      setTimeout(_ => {
-        let playButton = document.querySelector('.button-nfplayerPlay');
-        if (playButton) {
-          playButton.click();
-        }
-      }, 2000);
     }
     if (options.disableAutoPlayOnBrowse) {
       disableAutoPreview();
