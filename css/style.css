@@ -1,7 +1,7 @@
 body {
   width: 500px;
   background-color: black;
-  color: #B9090B;
+  color: #e8090b;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Open Sans', sans-serif;
@@ -12,7 +12,7 @@ body {
 }
 
 a {
-  color: #B9090B;
+  color: #e8090b;
 }
 
 #messages {
@@ -74,7 +74,7 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 #genreSearch:focus {
-  color: #B9090B;
+  color: #e8090b;
 }
 
 .lastField {
@@ -89,12 +89,12 @@ input[type=range]::-webkit-slider-runnable-track {
   float: left;
   width: 100%;
   background-color: black;
-  border: 1px solid #B9090B;
+  border: 1px solid #e8090b;
   padding: 5px;
   height: 30px;
   border-radius: 3px;
   outline: none;
-  color: #B9090B;
+  color: #e8090b;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -118,7 +118,7 @@ input[type=range]::-webkit-slider-runnable-track {
   float: left;
   width: 100%;
   background-color: white;
-  border: 1px solid #B9090B;
+  border: 1px solid #e8090b;
   padding: 5px;
   height: 30px;
   border-radius: 3px;
