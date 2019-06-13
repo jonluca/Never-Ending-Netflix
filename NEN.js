@@ -113,6 +113,11 @@ function startHelper() {
 function disableAutoPreview(numTries) {
   let billboard = document.querySelector('.billboard-row');
   if (billboard) {
+    const parent = billboard.parentElement;
+    // create padding div to prevent sizing issues
+    const emptyDiv = document.createElement("div");
+    emptyDiv.style.height = '30px';
+    parent.appendChild(emptyDiv);
     billboard.remove();
   } else {
     if (numTries > MAX_TRIES_DISABLE_AUTO_PREVIEW) {
