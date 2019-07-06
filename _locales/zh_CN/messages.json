@@ -1,10 +1,1 @@
-{
-  "manifest_name": {
-    "message": "永远不会结束Netflix",
-    "description": "The title of the application, displayed in the web store."
-  },
-  "manifest_description": {
-    "message": "自动播放下一集，跳过标题序列，跳过“你还在看吗？” 提示，搜索超过3000种类型！",
-    "description": "The description of the application, displayed in the web store."
-  }
-}
+{}

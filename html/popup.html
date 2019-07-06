@@ -12,44 +12,49 @@
     <div class="row">
         <form>
             <fieldset>
-                <legend data-i18n="extName">Never Ending Netflix</legend>
+                <legend data-i18n="extName" id="manifest_name" class="i18n">Never Ending Netflix</legend>
                 <ul>
                     <li class="field"><label class="checkbox" for="chkTitleSequence">
                         <input type="checkbox" id="chkTitleSequence"><span class="checkBackground"></span>
-                        <div style="display:inline">Skip Title Sequences</div>
+                        <div style="display:inline" class="i18n" id="skipTitleSequences">Skip Title Sequences</div>
                     </label></li>
                     <li class="field"><label class="checkbox" for="chkPlayNext">
                         <input type="checkbox" id="chkPlayNext"><span class="checkBackground"></span>
-                        <div style="display:inline">Automatically Play Next Episode</div>
+                        <div style="display:inline" class="i18n" id="autoPlayNext">Automatically Play Next Episode</div>
                     </label></li>
                     <li class="field"><label class="checkbox" for="chkWatchCredits">
                         <input type="checkbox" id="chkWatchCredits"><span class="checkBackground"></span>
-                        <div style="display:inline">Always Watch Credits</div>
+                        <div style="display:inline" class="i18n" id="alwaysWatchCredits">Always Watch Credits</div>
                     </label></li>
                     <li class="field"><label class="checkbox" for="chkDisAutoPlayInBrowse">
                         <input type="checkbox" id="chkDisAutoPlayInBrowse"><span class="checkBackground"></span>
-                        <div style="display:inline">Hide Auto Playing Promoted Videos</div>
+                        <div style="display:inline" class="i18n" id="hideAutoPlayVid">Hide Auto Playing Promoted
+                            Videos
+                        </div>
                     </label></li>
                     <li class="field"><label class="checkbox" for="chkPromptStillHere">
                         <input type="checkbox" id="chkPromptStillHere"><span class="checkBackground"></span>
-                        <div style="display:inline">Don't Prompt "Are you still watching?"</div>
+                        <div style="display:inline" class="i18n" id="dontPromptStillWatching">Don't Prompt "Are you
+                            still watching?"
+                        </div>
                     </label></li>
                     <li class="field"><label class="checkbox" for="chkHideDownvoted">
                         <input type="checkbox" id="chkHideDownvoted"><span class="checkBackground"></span>
-                        <div style="display:inline">Hide Downvoted Content</div>
+                        <div style="display:inline" class="i18n" id="hideDownvoted">Hide Downvoted Content</div>
                     </label></li>
-                    <li class="field lastField"><input type="text" id="genreSearch" placeholder="Genre search">
+                    <li class="field lastField"><input type="text" class="i18n-placeholder" id="genreSearch" placeholder="Genre search">
                         <div id="results"></div>
                     </li>
                 </ul>
             </fieldset>
         </form>
         <p class="footer">&copy; JonLuca DeCaro 2019 - <a
-                href="https://github.com/jonluca/Never-Ending-Netflix">Source Code</a> -
-            <a href="mailto:jdecaro@usc.edu">Support</a>-
-            <a id="contrast" data-value="low">High Contrast Mode</a></p>
+                href="https://github.com/jonluca/Never-Ending-Netflix" id="sourceCode" class="i18n">Source Code</a> -
+            <a href="mailto:jdecaro@usc.edu" class="i18n" id="support">Support</a>-
+            <a id="contrast" data-value="low" class="i18n" aria-invalid="highContrast">High Contrast Mode</a></p>
     </div>
 </div>
+<script src="../js/i18n.js"></script>
 <script src="../js/libs/modernizr-2.7.1.min.js"></script>
 <script src="../js/libs/gumby.min.js"></script>
 <script src="../js/common.js"></script>
