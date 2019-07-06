@@ -17,9 +17,15 @@ NEN allows you to customize it's functionality with an options menu, which can b
 
 [Link to Chrome Webstore](https://chrome.google.com/webstore/detail/hdadmgabliibighlbejhlglfjgplfmhb)
 
+
+## Language
+
+Note: I used Google Translate for all the translations. If there is anything wrong with them, please file an issue here and I'll fix it ASAP!
+
+
 ## Libraries & Credits
 
 * [Fuse.js](http://fusejs.io/) - Genre search
 * [gumby](https://gumbyframework.com/docs/javascript/) - Options page
 * [modernizr](https://modernizr.com/) - Options page
-* [jQuery](https://jquery.com/) 
+* [jQuery](https://jquery.com/)
