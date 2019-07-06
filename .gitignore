@@ -7,7 +7,6 @@
 # User-specific stuff:
 .idea/*
 __pycache__/*
-_locales/*
 
 ## File-based project format:
 *.iws

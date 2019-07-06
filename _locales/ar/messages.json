@@ -1,0 +1,38 @@
+{
+  "manifest_name": {
+    "message": "لا تنتهي أبدًا في Netflix"
+  },
+  "manifest_description": {
+    "message": "تشغيل الحلقة التالية تلقائيًا وتخطي تسلسل العناوين وتخطي \"هل ما زلت تشاهد؟\" المطالبات ، والبحث في أكثر من 3000 الأنواع!"
+  },
+  "skipTitleSequences": {
+    "message": "تخطي تسلسل العنوان"
+  },
+  "autoPlayNext": {
+    "message": "تلعب تلقائيا الحلقة القادمة"
+  },
+  "alwaysWatchCredits": {
+    "message": "دائما مشاهدة الاعتمادات"
+  },
+  "hideAutoPlayVid": {
+    "message": "إخفاء اللعب التلقائي مقاطع الفيديو الدعائية"
+  },
+  "dontPromptStillWatching": {
+    "message": "لا تطالب \"هل ما زلت تشاهد؟\""
+  },
+  "hideDownvoted": {
+    "message": "إخفاء المحتوى النازل"
+  },
+  "support": {
+    "message": "الدعم"
+  },
+  "highContrast": {
+    "message": "وضع التباين العالي"
+  },
+  "genreSearch": {
+    "message": "النوع البحث"
+  },
+  "sourceCode": {
+    "message": "مصدر الرمز"
+  }
+}
