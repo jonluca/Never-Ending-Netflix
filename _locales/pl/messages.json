@@ -3,7 +3,7 @@
     "message": "Nigdy nie kończący się Netflix"
   },
   "manifest_description": {
-    "message": "Automatycznie odtwarzaj następny odcinek, pomiń sekwencje tytułów, pomiń „Czy nadal oglądasz?” podpowiedzi i przeszukaj ponad 3000 gatunków!"
+    "message": "Automatycznie odtwarzaj następny odcinek, pomiń sekwencje tytułów, pomiń \"Czy nadal oglądasz?\" podpowiedzi i przeszukaj ponad 3000 gatunków!"
   },
   "skipTitleSequences": {
     "message": "Pomiń sekwencje tytułów"
@@ -18,7 +18,7 @@
     "message": "Ukryj automatyczne odtwarzanie Promowane filmy wideo"
   },
   "dontPromptStillWatching": {
-    "message": "Nie pytaj „Czy nadal oglądasz?”"
+    "message": "Nie pytaj \"Czy nadal oglądasz?\""
   },
   "hideDownvoted": {
     "message": "Ukryj treść pobraną"
