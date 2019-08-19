@@ -29,4 +29,3 @@ Note: I used Google Translate for all the translations. If there is anything wro
 * [gumby](https://gumbyframework.com/docs/javascript/) - Options page
 * [modernizr](https://modernizr.com/) - Options page
 * [jQuery](https://jquery.com/)
-# Perfect-Prime
