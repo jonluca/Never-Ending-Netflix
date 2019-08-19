@@ -1,15 +1,15 @@
 {
   "manifest_name": {
-    "message": "Netflixを終了しない"
+    "message": "Never-Ending-Netflix"
   },
   "manifest_description": {
-    "message": "次のエピソードを自動的に再生し、タイトルシーケンスをスキップし、「まだ視聴していますか？」をスキップします。プロンプト、そして3000以上のジャンルを検索！"
+    "message": "次のエピソードを自動再生し、イントロ画面を自動スキップし、「まだ視聴していますか？」の確認画面を非表示にします。3000以上のジャンル検索にも対応！"
   },
   "skipTitleSequences": {
-    "message": "タイトルシーケンスをスキップする"
+    "message": "イントロ画面を自動スキップする"
   },
   "autoPlayNext": {
-    "message": "次のエピソードを自動的に再生する"
+    "message": "次のエピソードを自動再生する"
   },
   "alwaysWatchCredits": {
     "message": "常にクレジットを見る"
@@ -18,10 +18,10 @@
     "message": "自動再生のプロモート動画を非表示にする"
   },
   "dontPromptStillWatching": {
-    "message": "「まだ見ていますか？」というプロンプトを表示しないでください。"
+    "message": "「まだ見ていますか？」という確認画面を非表示にする"
   },
   "hideDownvoted": {
-    "message": "投票されていないコンテンツを隠す"
+    "message": "イマイチと評価した作品を非表示にする"
   },
   "support": {
     "message": "サポート"
