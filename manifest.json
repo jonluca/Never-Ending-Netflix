@@ -52,6 +52,7 @@
       ],
       "js": [
         "js/libs/jquery.js",
+        "js/selectors.js",
         "js/common.js",
         "NEN.js"
       ]
@@ -66,6 +67,7 @@
   "background": {
     "persistent": true,
     "scripts": [
+      "js/selectors.js",
       "js/common.js",
       "js/hot-reload.js"
     ]

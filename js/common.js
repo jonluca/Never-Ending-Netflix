@@ -46,6 +46,7 @@ function sendOptions(options) {
   chrome.runtime.sendMessage(request);
 }
 
+
 function injectScript(file_path, tag) {
   var node = document.getElementsByTagName(tag)[0];
   var script = document.createElement('script');
@@ -55,3 +56,4 @@ function injectScript(file_path, tag) {
 }
 
 injectScript(chrome.extension.getURL('js/playerInject.js'), 'body');
+injectScript(chrome.extension.getURL('js/selectors.js'), 'body');

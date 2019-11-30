@@ -13,7 +13,7 @@ function onMessage(message, sender, sendResponse) {
 $(_ => {
   loadOptions(receivedOptions => {
     options = receivedOptions;
-    // It's a react app, so anytime they navigate away or to another title, we need to rehide/do all our options
+    // It's a react app, soj anytime they navigate away or to another title, we need to rehide/do all our options
     $('.main-header').on('click', '*', function () {
       startHelper();
     });
@@ -21,19 +21,31 @@ $(_ => {
   });
 });
 
+function dispatchEventToBody(eventType) {
+  const event = new Event(eventType, {
+    bubbles: true,
+    cancelable: false
+  });
+  document.dispatchEvent(event);
+}
+
 function startMonitoringForSelectors(selectors, numTries) {
+  if (!selectors.length) {
+    return;
+  }
   /*Mutation observer for skippable elements*/
   const monitor = new MutationObserver(_ => {
     let selector = selectors.join(', ');
     let elems = document.querySelectorAll(selector);
     for (const elem of elems) {
-      let attribute = elem.getAttribute("aria-label");
-      // If the "Watch Credits" option is selected, it'll click "Watch Credits". The button does not disappear, though,
-      // and keeps getting pressed. We need to check if it has credits in it's aria, and remove the button if so
-      if (attribute && attribute.indexOf("credits") !== -1) {
-        elem.remove();
-      } else if (attribute === "Skip Intro") {
-
+      const ariaLabel = elem.getAttribute("aria-label");
+      const newDataUia = elem.getAttribute("data-uia") || '';
+      const isCredits = newDataUia.includes('watch-credits');
+      if (isCredits || newDataUia.includes('next-episode')) {
+        elem.click();
+        // Send an event that tries to trigger the react version of the action
+        dispatchEventToBody(isCredits ? 'watchCreditsEvent' : 'nextEpEvent');
+      } else if (ariaLabel === "Skip Intro") {
         doClick(elem).then(_ => {
           doGetPlayButton();
         });
@@ -50,8 +62,11 @@ function startMonitoringForSelectors(selectors, numTries) {
           // fire the event
           document.dispatchEvent(evt);
         }
+
+        dispatchEventToBody('skipIntroEvent');
       } else {
         elem.click();
+        elem.dispatchEvent(new PointerEvent('click'));
       }
     }
     if (options.disableAutoPlayOnBrowse) {
@@ -99,7 +114,7 @@ function startHelper() {
   }
 
   if (options.watchCredits) {
-    watchCredits(selectors);
+    enableWatchCredits(selectors);
   }
 
   if (options.disableAutoPlayOnBrowse) {
@@ -128,30 +143,6 @@ function disableAutoPreview(numTries) {
       disableAutoPreview(numTries);
     }, numTries * 150);
   }
-}
-
-function enableAutoPlayNext(selectors) {
-  /*Pulls all classes that start with "Watch Next" */
-  selectors.push(".WatchNext-autoplay"); // Unknown if other international have localized class names
-  selectors.push('.WatchNext-still-hover-container');
-  selectors.push(".nfa-bot-6-em.nfa-right-5-em a:last-child");
-  selectors.push('[aria-label^="Next episode"]');
-}
-
-function enableSkipTitleSequence(selectors) {
-  /*Skip title sequence*/
-  selectors.push('[aria-label="Skip Intro"]'); // American version will have this text, most reliable
-  selectors.push('.skip-credits > a'); // Also include first descendant of skip-credits, in case it's international?
-}
-
-function enableSkipStillHere(selectors) {
-  selectors.push('.postplay-button');
-  selectors.push('.continue-playing');
-  selectors.push('.player-postplay-still-hover-container');
-}
-
-function watchCredits(selectors) {
-  selectors.push('[aria-label^="Watch credits"]');
 }
 
 function hideDisliked() {
