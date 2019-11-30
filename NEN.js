@@ -13,7 +13,7 @@ function onMessage(message, sender, sendResponse) {
 $(_ => {
   loadOptions(receivedOptions => {
     options = receivedOptions;
-    // It's a react app, soj anytime they navigate away or to another title, we need to rehide/do all our options
+    // It's a react app, so anytime they navigate away or to another title, we need to rehide/do all our options
     $('.main-header').on('click', '*', function () {
       startHelper();
     });
