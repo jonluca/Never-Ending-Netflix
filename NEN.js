@@ -43,6 +43,7 @@ function startMonitoringForSelectors(selectors, numTries) {
       const isCredits = newDataUia.includes('watch-credits');
       if (isCredits || newDataUia.includes('next-episode')) {
         elem.click();
+        elem.dispatchEvent(new PointerEvent('click'));
         // Send an event that tries to trigger the react version of the action
         dispatchEventToBody(isCredits ? 'watchCreditsEvent' : 'nextEpEvent');
       } else if (ariaLabel === "Skip Intro") {

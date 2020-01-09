@@ -16,6 +16,7 @@ function enableAutoPlayNext(selectors) {
   selectors.push('.WatchNext-still-hover-container');
   selectors.push('[aria-label^="Next episode"]');
   selectors.push('[data-uia^="next-episode-seamless-button"]');
+  selectors.push('.draining');
 }
 
 function enableSkipTitleSequence(selectors) {
