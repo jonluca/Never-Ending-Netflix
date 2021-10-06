@@ -22,7 +22,9 @@ function enableAutoPlayNext(selectors) {
 function enableSkipTitleSequence(selectors) {
   /*Skip title sequence*/
   selectors.push('[aria-label="Skip Intro"]'); // American version will have this text, most reliable
+  selectors.push('[data-uia="player-skip-intro"]'); // American version will have this text, most reliable
   selectors.push('.skip-credits > a'); // Also include first descendant of skip-credits, in case it's international?
+  selectors.push('.watch-video--skip-content > button'); // Also include first descendant of skip-credits, in case it's international?
 }
 
 function enableSkipStillHere(selectors) {
