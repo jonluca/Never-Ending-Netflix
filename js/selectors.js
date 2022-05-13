@@ -28,6 +28,7 @@ function enableSkipTitleSequence(selectors) {
 }
 
 function enableSkipStillHere(selectors) {
+  selectors.push('[data-uia="interrupt-autoplay-continue"]');
   selectors.push('.interrupter-actions > .nf-icon-button:first-child');
   selectors.push('[aria-label^="Continue Playing"]');
 }
