@@ -12,6 +12,7 @@ function loadOptions(callback) {
     options.watchCredits = options.hasOwnProperty('watchCredits') ? options.watchCredits : false;
     options.skipTitleSequence = options.hasOwnProperty('skipTitleSequence') ? options.skipTitleSequence : true;
     options.disableAutoPlayOnBrowse = options.hasOwnProperty('disableAutoPlayOnBrowse') ? options.disableAutoPlayOnBrowse : false;
+    options.dontMinimzeEndCreditsOfShow = options.hasOwnProperty('dontMinimzeEndCreditsOfShow') ? options.dontMinimzeEndCreditsOfShow : false;
     options.hideDisliked = options.hasOwnProperty('hideDisliked') ? options.hideDisliked : false;
     options.highContrast = options.hasOwnProperty('highContrast') ? options.highContrast : false;
 

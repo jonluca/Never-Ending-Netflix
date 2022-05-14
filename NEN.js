@@ -101,6 +101,10 @@ function startHelper() {
     enableSkipTitleSequence(selectors);
   }
 
+  if (options.dontMinimzeEndCreditsOfShow) {
+    enableDontSkipEndShowCredits(selectors);
+  }
+
   if (options.autoPlayNext) {
     enableAutoPlayNext(selectors);
   }

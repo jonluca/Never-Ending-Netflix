@@ -37,3 +37,7 @@ function enableWatchCredits(selectors) {
   selectors.push('[aria-label^="Watch credits"]');
   selectors.push('[data-uia^="watch-credits-seamless-button"]');
 }
+
+function enableDontSkipEndShowCredits(selectors) {
+  selectors.push('.watch-video--player-view-minimized > div');
+}

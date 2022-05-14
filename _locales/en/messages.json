@@ -31,6 +31,10 @@
     "message": "Hide Downvoted Content",
     "description": "Text for the hide downvoted content option"
   },
+  "dontMinimzeEndCreditsOfShow": {
+    "message": "Don't Minimize End Credits Of Show",
+    "description": "Text for the dont minize end credits of show content option"
+  },
   "support": {
     "message": "Support",
     "description": "Text with a link to my websitem, for support"
