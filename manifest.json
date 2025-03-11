@@ -1,9 +1,12 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_manifest_name__",
   "description": "__MSG_manifest_description__",
-  "version": "2.7",
+  "version": "2.8",
   "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
     "*://*.netflix.com/*",
     "*://*.netflix.co.uk/*",
     "*://*.netflix.ar/*",
@@ -23,8 +26,7 @@
     "*://*.netflix.ru/*",
     "*://*.netflix.sg/*",
     "*://*.netflix.sk/*",
-    "*://*.netflix.es/*",
-    "storage"
+    "*://*.netflix.es/*"
   ],
   "content_scripts": [
     {
@@ -53,7 +55,7 @@
       "js": [
         "js/libs/jquery.js",
         "js/selectors.js",
-        "js/common.js",
+        "js/common-content.js",
         "NEN.js"
       ]
     }
@@ -65,21 +67,39 @@
     "128": "images/icon128.png"
   },
   "background": {
-    "persistent": true,
-    "scripts": [
-      "js/selectors.js",
-      "js/common.js",
-      "js/hot-reload.js"
-    ]
+    "service_worker": "js/background.js"
   },
-  "browser_action": {
+  "action": {
     "default_popup": "html/popup.html",
     "default_title": "__MSG_manifest_name__"
   },
   "default_locale": "en",
   "homepage_url": "https://jonlu.ca",
   "web_accessible_resources": [
-    "js/*",
-    "data/*"
+    {
+      "resources": ["js/*", "data/*"],
+      "matches": [
+        "*://*.netflix.com/*",
+        "*://*.netflix.co.uk/*",
+        "*://*.netflix.ar/*",
+        "*://*.netflix.au/*",
+        "*://*.netflix.br/*",
+        "*://*.netflix.ca/*",
+        "*://*.netflix.fr/*",
+        "*://*.netflix.de/*",
+        "*://*.netflix.cz/*",
+        "*://*.netflix.hk/*",
+        "*://*.netflix.in/*",
+        "*://*.netflix.jp/*",
+        "*://*.netflix.lt/*",
+        "*://*.netflix.no/*",
+        "*://*.netflix.nl/*",
+        "*://*.netflix.pl/*",
+        "*://*.netflix.ru/*",
+        "*://*.netflix.sg/*",
+        "*://*.netflix.sk/*",
+        "*://*.netflix.es/*"
+      ]
+    }
   ]
 }
