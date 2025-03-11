@@ -1,10 +1,10 @@
 // Load options from local storage
 // Return default values if none exist
 function loadOptions(callback) {
-  chrome.storage.sync.get('options', items => {
+    chrome.storage.sync.get('options', items => {
     let options = items['options'];
     if (options == null || options === "{}") {
-      options = {};
+        options = {};
     }
 
     options.skipStillHere = options.hasOwnProperty('skipStillHere') ? options.skipStillHere : true;
@@ -17,32 +17,43 @@ function loadOptions(callback) {
     options.highContrast = options.hasOwnProperty('highContrast') ? options.highContrast : false;
 
     chrome.storage.sync.set({
-      'options': options
+        'options': options
     }, _ => {
-      callback(options);
+        callback(options);
     });
-  });
+    });
 
 }
 
 // Send options to all tabs and extension pages
 function sendOptions(options) {
-  let request = {
+    let request = {
     action: 'optionsChanged',
     'options': options
-  };
+    };
 
-  // Send options to all tabs
-  chrome.windows.getAll(null, function (windows) {
+    // Send options to all tabs
+    chrome.windows.getAll(null, function (windows) {
     for (let i = 0; i < windows.length; i++) {
-      chrome.tabs.getAllInWindow(windows[i].id, function (tabs) {
+        chrome.tabs.getAllInWindow(windows[i].id, function (tabs) {
         for (let j = 0; j < tabs.length; j++) {
-          chrome.tabs.sendMessage(tabs[j].id, request);
+            chrome.tabs.sendMessage(tabs[j].id, request);
         }
-      });
+        });
     }
-  });
+    });
 
-  // Send options to other extension pages
-  chrome.runtime.sendMessage(request);
+    // Send options to other extension pages
+    chrome.runtime.sendMessage(request);
 }
+
+function injectScript(file_path, tag) {
+    var node = document.getElementsByTagName(tag)[0];
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', file_path);
+    node.appendChild(script);
+}
+  
+injectScript(chrome.runtime.getURL('js/playerInject.js'), 'body');
+injectScript(chrome.runtime.getURL('js/selectors.js'), 'body');
